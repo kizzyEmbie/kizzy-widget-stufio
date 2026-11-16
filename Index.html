@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kizzy Widget Studio</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #100d10;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    color: #d6a0ad;
+    text-align: center;
+}
+
+.container {
+    max-width: 450px;
+    margin: auto;
+}
+
+.preview {
+    background: #241b22;
+    border-radius: 25px;
+    padding: 30px;
+    text-align: center;
+    margin: 25px 0;
+}
+
+.widget {
+    background: #171216;
+    border-radius: 20px;
+    padding: 25px;
+    min-height: 150px;
+}
+
+#clock {
+    font-size: 38px;
+    font-weight: bold;
+}
+
+#date {
+    color: #d6a0ad;
+    margin-top: 10px;
+}
+
+.controls {
+    background: #241b22;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 18px;
+    margin-bottom: 8px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+}
+
+button {
+    background: #d6a0ad;
+    color: #171216;
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 100%;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>KIZZY WIDGET STUDIO</h1>
+<p style="text-align:center;color:#aaa;">
+Create your own aesthetic widgets.
+</p>
+
+<div class="preview">
+    <h3>LIVE PREVIEW</h3>
+
+    <div class="widget" id="myWidget">
+        <div id="clock">00:00</div>
+        <div id="date">Loading date...</div>
+    </div>
+</div>
+
+<div class="controls">
+
+<h3>Customize your widget</h3>
+
+<label>Background colour</label>
+<input type="color" id="bgColor" value="#171216">
+
+<label>Text colour</label>
+<input type="color" id="textColor" value="#ffffff">
+
+<label>Font size</label>
+<input type="range" id="fontSize"
+min="20" max="60" value="38">
+
+<label>Font style</label>
+<select id="fontStyle">
+    <option value="Arial">Arial</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Times New Roman">Times New Roman</option>
+</select>
+
+<button onclick="resetWidget()">Reset design</button>
+
+</div>
+</div>
+
+<script>
+
+const widget = document.getElementById("myWidget");
+
+function updateClock() {
+    const now = new Date();
+
+    document.getElementById("clock").textContent =
+    now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    document.getElementById("date").textContent =
+    now.toDateString();
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+document.getElementById("bgColor").oninput = function() {
+    widget.style.background = this.value;
+};
+
+document.getElementById("textColor").oninput = function() {
+    widget.style.color = this.value;
+};
+
+document.getElementById("fontSize").oninput = function() {
+    document.getElementById("clock").style.fontSize =
+    this.value + "px";
+};
+
+document.getElementById("fontStyle").onchange = function() {
+    widget.style.fontFamily = this.value;
+};
+
+function resetWidget() {
+    widget.style.background = "#171216";
+    widget.style.color = "white";
+    widget.style.fontFamily = "Arial";
+    document.getElementById("clock").style.fontSize = "38px";
+
+    document.getElementById("bgColor").value = "#171216";
+    document.getElementById("textColor").value = "#ffffff";
+    document.getElementById("fontSize").value = "38";
+    document.getElementById("fontStyle").value = "Arial";
+}
+
+</script>
+
+</body>
+</html>
