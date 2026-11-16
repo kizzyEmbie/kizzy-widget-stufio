@@ -1,1 +1,1 @@
-# kizzy-widget-stufio
+# widget-stufio
